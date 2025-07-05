@@ -12,13 +12,15 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
-app.get("/", (req,res)=>{
-    res.send("Server is running:"+ process.env.NODE_ENV)
+app.get("/", (req,res)=>{   
+    res.send("Server is running:")
 }) 
 
 import uploadRoutes from "./routes/upload.route.js"
+import authRoutes from "./routes/auth.route.js"
 
 app.use("/api/v1", uploadRoutes)
+app.use("/api/v1/auth", authRoutes)
 
 export {app}
 

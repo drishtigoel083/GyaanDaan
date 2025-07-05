@@ -1,12 +1,10 @@
-import express from "express";
+import express from 'express';
+import { uploadNote } from '../controller/uploadNote.controller.js';
+import auth from '../middlewares/auth.js';
+import upload from '../middlewares/multer.js'; 
 
 const router = express.Router();
 
-router.route("/upload").post(
-    (req, res) => {
-        // Handle file upload logic here
-        res.status(200).json({ message: "File uploaded successfully" });
-    }
-)
+router.post('/upload', auth, upload.single('file'), uploadNote);
 
 export default router;
