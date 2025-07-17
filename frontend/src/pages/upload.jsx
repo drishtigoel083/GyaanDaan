@@ -1,80 +1,62 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../utils/axiosInstance';
 
-export default function UploadNotesPage() {
-  const [title, setTitle] = useState('');
-  const [tags, setTags] = useState('');
+const UploadPage = () => {
   const [file, setFile] = useState(null);
+  const [formDataState, setFormDataState] = useState({
+    title: '',
+    course: '',
+    subject: '',
+    semester: '',
+    university: ''
+  });
   const [message, setMessage] = useState('');
+  const [shareLink, setShareLink] = useState('');
+
+  const handleChange = (e) => {
+    setFormDataState({ ...formDataState, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!title || !file) {
-      setMessage('Title and file are required');
-      return;
-    }
+    if (!file) return alert("File is required");
 
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('tags', tags);
+    Object.entries(formDataState).forEach(([key, val]) => formData.append(key, val));
     formData.append('file', file);
 
     try {
-      const response = await axios.post('/api/notes/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      setMessage('Upload successful!');
-      setTitle('');
-      setTags('');
-      setFile(null);
+      const response = await axios.post('/upload', formData);
+      setMessage(response.data.message);
+      setShareLink(response.data.shareLink);
     } catch (err) {
-      setMessage('Upload failed. Please try again.');
+      console.error(err);
+      setMessage("Upload failed.");
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-10 p-4 border rounded-xl shadow-md bg-white">
-      <h2 className="text-2xl font-bold mb-4 text-center">Upload Your Notes</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block font-medium">Title</label>
-          <input
-            type="text"
-            className="w-full p-2 border rounded"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Tags (comma separated)</label>
-          <input
-            type="text"
-            className="w-full p-2 border rounded"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Upload File (PDF, DOC, etc.)</label>
-          <input
-            type="file"
-            className="w-full"
-            onChange={(e) => setFile(e.target.files[0])}
-            accept="application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          Upload
-        </button>
-        {message && <p className="text-sm text-center mt-2">{message}</p>}
+    <div>
+      <h2>Upload Notes</h2>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <input name="title" placeholder="Title" onChange={handleChange} required />
+        <input name="course" placeholder="Course" onChange={handleChange} required />
+        <input name="subject" placeholder="Subject" onChange={handleChange} required />
+        <input name="semester" placeholder="Semester" onChange={handleChange} required />
+        <input name="university" placeholder="University" onChange={handleChange} required />
+        <input type="file" onChange={handleFileChange} required />
+        <button type="submit">Upload</button>
       </form>
+      {message && <p>{message}</p>}
+      {shareLink && (
+        <p>Share Link: <a href={shareLink} target="_blank" rel="noreferrer">{shareLink}</a></p>
+      )}
     </div>
   );
-} 
+};
+
+export default UploadPage;

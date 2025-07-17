@@ -7,6 +7,8 @@ export const uploadNote = async (req, res) => {
     const { title, course, subject, semester, university } = req.body;
     const file = req.file;
 
+    console.log("Uploaded file:", file);
+
     // Validate
     if (!title || !course || !subject || !semester || !file) {
       return res.status(400).json({ message: "All required fields must be filled" });
