@@ -1,7 +1,5 @@
 # GyaanDaan - A Seamless Note Sharing Platform
 
----
-
 ## Features
 
 - 📝 Upload and share notes securely
