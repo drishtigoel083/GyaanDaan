@@ -1,5 +1,6 @@
 import Note from '../models/Note.model.js';
 import { nanoid } from 'nanoid';
+import { uploadOnCloudinary } from '../utils/cloudinary.js';
 
 // POST /api/notes/upload
 export const uploadNote = async (req, res) => {
@@ -9,9 +10,21 @@ export const uploadNote = async (req, res) => {
 
     console.log("Uploaded file:", file);
 
+
     // Validate
     if (!title || !course || !subject || !semester || !file) {
       return res.status(400).json({ message: "All required fields must be filled" });
+    }
+
+    // upload file to cloudinary
+    if(file && file.path){
+      try {
+        const cloudinaryResponse = await uploadOnCloudinary(file.path);
+        file.path = cloudinaryResponse.secure_url;
+      } catch (error) {
+        console.error("Cloudinary upload error:", error);
+        return res.status(500).json({ message: "Failed to upload file to Cloudinary" });
+      }
     }
 
     // Create new note document
@@ -26,7 +39,7 @@ export const uploadNote = async (req, res) => {
       slug: nanoid(8),
     });
 
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5000';
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
 
     res.status(201).json({
       message: "Note uploaded successfully",

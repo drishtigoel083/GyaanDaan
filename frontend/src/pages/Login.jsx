@@ -18,7 +18,9 @@ const LoginPage = () => {
       alert('Login successful');
       navigate('/upload');
     } catch (err) {
+      console.log("error :", err);
       alert('Login failed');
+      
     }
   };
 

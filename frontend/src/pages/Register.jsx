@@ -18,7 +18,7 @@ const Register = () => {
       alert('Signup successful');
       navigate('/upload');
     } catch (err) {
-      alert('Signup failed');
+      alert('Error:',err.response?.data?.message || 'Signup failed');
     }
   };
 
