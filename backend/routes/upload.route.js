@@ -7,4 +7,5 @@ const router = express.Router();
 
 router.post('/upload', auth, upload.single('file'), uploadNote);
 
+
 export default router;

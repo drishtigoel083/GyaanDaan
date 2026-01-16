@@ -3,6 +3,7 @@ import Home from "./pages/Home.jsx"
 import UploadNotesPage from "./pages/upload.jsx"
 import Register from "./pages/Register.jsx"
 import LoginPage from "./pages/Login.jsx"
+import NotesPreview from "./pages/NotesPreview.jsx"
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
       <Route path = '/upload' element = {<UploadNotesPage/>} />
       <Route path = '/register' element = {<Register/>} />
       <Route path = '/login' element = {<LoginPage/>} />
+      <Route path = '/notes/:slug' element = {<NotesPreview/>} />
 
     </Routes>
    </Router>
