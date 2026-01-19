@@ -55,18 +55,22 @@ https://gyaan-daan.vercel.app/
 
     #frontend .env file
     VITE_API_BASE_URL=http://localhostURL/api/v1
-4. **Run the Application**
-   Start Backend:
 
-   ```Bash
-   # From the root directory
+ ## 🚀 Running the Application
+
+To run the full-stack application, you need to start both the backend and frontend servers simultaneously.
+
+### 1. Start Backend Server
+Open your terminal in the **root directory**:
+
+    # Start the server
      npm start
 
-  Start Frontend:
-
-  ```Bash
-  # From the frontend directory
-    npm run dev
+### 2. Start Frontend (Vite) 
+Open your terminal in the **root directory**:
+```bash
+# Start the development server
+npm run dev
 
 
          
