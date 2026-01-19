@@ -87,7 +87,7 @@ export default function LandingPage() {
           Start sharing knowledge today
         </motion.h3>
         <p className="mt-4 text-gray-600">No more lost files. No more endless chats.</p>
-        <a href="/signup" className="inline-block mt-8 px-8 py-4 bg-blue-600 text-white rounded-xl hover:scale-105 transition">
+        <a href="/register" className="inline-block mt-8 px-8 py-4 bg-blue-600 text-white rounded-xl hover:scale-105 transition">
           Create Free Account
         </a>
       </section>
