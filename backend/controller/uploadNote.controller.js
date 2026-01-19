@@ -28,7 +28,7 @@ export const uploadNote = async (req, res) => {
     res.status(201).json({
       message: "Note uploaded successfully",
       note: newNote,
-      shareLink: `${process.env.FRONTEND_URL}/notes/${newNote.slug}`,
+      shareLink: `${process.env.FRONTEND_URL_PROD}/notes/${newNote.slug}`,
     });
 
   } catch (error) {
