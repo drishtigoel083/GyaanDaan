@@ -6,7 +6,7 @@
 
 ## 🚀 Live Demo
 
-(https://gyaan-daan.vercel.app/)
+https://gyaan-daan.vercel.app/
 
 ---
 
@@ -39,9 +39,9 @@
      cd backend && npm install
    # Install for Frontend
      cd frontend && npm install
-3. **Environment Variables setup:**
-     # Create a .env file in backend folder and one in frontend folder
-     # Add your credentials
+3. **Environment Variables setup:Create a .env file in backend folder and one in frontend folder and
+      add your credentials**
+      
    ```bash
      # backend .env file
      PORT=5000
@@ -58,14 +58,15 @@
 4. **Run the Application**
    Start Backend:
 
-```Bash
-# From the root directory
-npm start
-Start Frontend:
+   ```Bash
+   # From the root directory
+     npm start
 
-Bash
-# From the frontend directory
-npm run dev
+  Start Frontend:
+
+  ```Bash
+  # From the frontend directory
+    npm run dev
 
 
          
