@@ -7,10 +7,27 @@ import cookieParser from "cookie-parser"
 dotenv.config()
 
 const app = express()
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL_DEV,
+  process.env.FRONTEND_URL_PROD
+].filter(Boolean);
+
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    
+    return callback(new Error('Not allowed by CORS'), false);
+
+  },
     credentials: true,
 }))
+
+
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
