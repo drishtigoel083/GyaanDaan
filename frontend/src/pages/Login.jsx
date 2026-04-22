@@ -54,6 +54,7 @@ const LoginPage = () => {
               placeholder="YOU@EXAMPLE.COM"
             />
           </div>
+          
 
           <div>
             <label className="block text-xl font-black uppercase mb-2">

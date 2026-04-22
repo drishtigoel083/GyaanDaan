@@ -19,6 +19,8 @@ const Navbar = () => (
   </nav>
 );
 
+
+
 const Hero = () => {
   const heroRef = useRef(null);
 
