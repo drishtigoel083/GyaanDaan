@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "../utils/axiosInstance";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, CheckCircle, FileText, Globe, GraduationCap, BookOpen, Layers } from "lucide-react";
+import { Upload, CheckCircle, FileText, Globe, GraduationCap, BookOpen, Layers, X } from "lucide-react";
 
 const UploadPage = () => {
   const [file, setFile] = useState(null);
@@ -47,84 +47,69 @@ const UploadPage = () => {
     }
   };
 
-  const inputClasses = "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all duration-200 text-gray-700 placeholder:text-gray-400";
-  const labelClasses = "block text-sm font-semibold text-gray-600 mb-1.5 ml-1";
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-100 via-slate-50 to-teal-50 py-12 px-4">
+    <div className="min-h-screen bg-[#FDFDFD] py-20 px-4 font-mono relative overflow-hidden">
+      {/* Decorative dots */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, #000 2px, transparent 0)", backgroundSize: "40px 40px" }}></div>
+
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="w-full max-w-2xl bg-white rounded-3xl shadow-2xl shadow-indigo-100/50 overflow-hidden"
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="w-full max-w-3xl mx-auto bg-white border-4 border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] relative z-10"
       >
-        <div className="bg-indigo-600 p-8 text-center text-white">
-          <motion.div 
-            initial={{ y: -20 }} 
-            animate={{ y: 0 }}
-            className="inline-block p-3 bg-white/20 rounded-2xl mb-4 backdrop-blur-md"
-          >
-            <Upload className="w-8 h-8 text-white" />
-          </motion.div>
-          <h2 className="text-3xl font-extrabold tracking-tight">Upload Your Notes</h2>
-          <p className="text-indigo-100 mt-2 font-medium">Contribute to the student community</p>
+        {/* Header */}
+        <div className="bg-[#FFB7D5] border-b-4 border-black p-10">
+          <div className="flex items-center gap-6">
+            <div className="p-4 bg-white border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]">
+              <Upload className="w-10 h-10 text-black" strokeWidth={3} />
+            </div>
+            <div>
+              <h2 className="text-5xl font-black uppercase tracking-tighter leading-none">Upload Notes</h2>
+              <p className="font-bold text-black/70 mt-2 uppercase tracking-widest">Share knowledge, gain karma.</p>
+            </div>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} className="p-10 space-y-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             
-            {/* Title - Full Width */}
             <div className="md:col-span-2">
-              <label className={labelClasses}>Document Title</label>
+              <label className="block text-xl font-black uppercase mb-3">Document Title</label>
               <div className="relative">
-                <FileText className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
+                <FileText className="absolute left-4 top-4 w-6 h-6 text-black" />
                 <input
                   name="title"
-                  placeholder="e.g. Quantum Mechanics Lecture 1"
+                  placeholder="E.G. QUANTUM MECHANICS L1"
                   onChange={handleChange}
                   required
-                  className={`${inputClasses} pl-12`}
+                  className="w-full pl-14 pr-4 py-4 bg-white border-4 border-black font-bold outline-none focus:bg-[#B2F39D] transition-colors uppercase"
                 />
               </div>
             </div>
 
-            {/* Course & Subject */}
             <div>
-              <label className={labelClasses}>Course</label>
-              <div className="relative">
-                <GraduationCap className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                <input name="course" placeholder="B.Tech, MBA..." onChange={handleChange} className={`${inputClasses} pl-12`} />
-              </div>
+              <label className="block text-xl font-black uppercase mb-3 text-sm">Course</label>
+              <input name="course" placeholder="B.TECH, MBA..." onChange={handleChange} className="w-full px-4 py-4 bg-white border-4 border-black font-bold outline-none focus:bg-[#FFD363] transition-colors uppercase" />
             </div>
 
             <div>
-              <label className={labelClasses}>Subject</label>
-              <div className="relative">
-                <BookOpen className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                <input name="subject" placeholder="Physics, Law..." onChange={handleChange} className={`${inputClasses} pl-12`} />
-              </div>
-            </div>
-
-            {/* Semester & University */}
-            <div>
-              <label className={labelClasses}>Semester</label>
-              <div className="relative">
-                <Layers className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                <input name="semester" placeholder="1st, 2nd..." onChange={handleChange} className={`${inputClasses} pl-12`} />
-              </div>
+              <label className="block text-xl font-black uppercase mb-3 text-sm">Subject</label>
+              <input name="subject" placeholder="PHYSICS, LAW..." onChange={handleChange} className="w-full px-4 py-4 bg-white border-4 border-black font-bold outline-none focus:bg-[#FFD363] transition-colors uppercase" />
             </div>
 
             <div>
-              <label className={labelClasses}>University</label>
-              <div className="relative">
-                <Globe className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-                <input name="university" placeholder="Optional" onChange={handleChange} className={`${inputClasses} pl-12`} />
-              </div>
+              <label className="block text-xl font-black uppercase mb-3 text-sm">Semester</label>
+              <input name="semester" placeholder="1ST, 2ND..." onChange={handleChange} className="w-full px-4 py-4 bg-white border-4 border-black font-bold outline-none focus:bg-[#8EC5FC] transition-colors uppercase" />
             </div>
 
-            {/* File Upload Custom Zone */}
+            <div>
+              <label className="block text-xl font-black uppercase mb-3 text-sm">University</label>
+              <input name="university" placeholder="OPTIONAL" onChange={handleChange} className="w-full px-4 py-4 bg-white border-4 border-black font-bold outline-none focus:bg-[#8EC5FC] transition-colors uppercase" />
+            </div>
+
             <div className="md:col-span-2">
-              <label className={labelClasses}>Attachment</label>
-              <div className="relative border-2 border-dashed border-gray-200 rounded-2xl p-6 hover:border-indigo-400 transition-colors group bg-gray-50/50">
+              <label className="block text-xl font-black uppercase mb-3">Attachment</label>
+              <div className="relative border-4 border-dashed border-black p-10 hover:bg-gray-50 transition-colors group cursor-pointer">
                 <input
                   type="file"
                   onChange={handleFileChange}
@@ -132,27 +117,25 @@ const UploadPage = () => {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
                 <div className="text-center">
-                  <Upload className="w-10 h-10 text-gray-400 mx-auto group-hover:text-indigo-500 transition-colors" />
-                  <p className="mt-2 text-sm text-gray-600">
-                    {file ? <span className="text-indigo-600 font-semibold">{file.name}</span> : "Click to upload or drag and drop"}
+                  <Upload className="w-12 h-12 text-black mx-auto mb-4" strokeWidth={3} />
+                  <p className="font-black text-xl uppercase italic">
+                    {file ? <span className="bg-[#B2F39D] px-2">{file.name}</span> : "Drop files or click here"}
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">PDF, DOCX up to 10MB</p>
+                  <p className="font-bold text-black/50 mt-2 uppercase text-xs">PDF, DOCX UP TO 10MB</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.98 }}
+          <button
             disabled={isUploading}
             type="submit"
-            className={`w-full py-4 rounded-xl font-bold text-lg shadow-lg transition-all ${
-              isUploading ? "bg-gray-400 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-200"
+            className={`w-full py-6 border-4 border-black font-black text-3xl uppercase shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all active:scale-95 ${
+              isUploading ? "bg-gray-200 cursor-not-allowed shadow-none translate-x-[4px] translate-y-[4px]" : "bg-[#FFD363]"
             }`}
           >
-            {isUploading ? "Uploading..." : "Publish Notes"}
-          </motion.button>
+            {isUploading ? "UPLOADING..." : "PUBLISH NOTES"}
+          </button>
         </form>
 
         <AnimatePresence>
@@ -161,22 +144,25 @@ const UploadPage = () => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="bg-slate-50 border-t border-gray-100 p-8"
+              className="bg-[#B2F39D] border-t-4 border-black p-10"
             >
               {message && (
-                <div className="flex items-center gap-2 text-indigo-800 font-medium mb-4">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
+                <div className="flex items-center gap-4 text-black font-black text-2xl uppercase mb-6">
+                  <CheckCircle className="w-8 h-8" strokeWidth={3} />
                   {message}
                 </div>
               )}
               {shareLink && (
-                <div className="p-4 bg-white border border-indigo-100 rounded-2xl shadow-sm">
-                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Shareable Link</p>
-                  <div className="flex items-center justify-between gap-4">
-                    <code className="text-indigo-600 break-all text-sm font-mono">{shareLink}</code>
+                <div className="p-6 bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                  <p className="font-black text-xs uppercase tracking-widest text-black/50 mb-3">Shareable Link</p>
+                  <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <code className="text-black break-all text-lg font-black uppercase bg-gray-100 px-3 py-1">{shareLink}</code>
                     <button 
-                      onClick={() => navigator.clipboard.writeText(shareLink)}
-                      className="text-xs bg-indigo-50 text-indigo-700 px-3 py-1.5 rounded-lg hover:bg-indigo-100 transition-colors"
+                      onClick={() => {
+                        navigator.clipboard.writeText(shareLink);
+                        alert("Copied!");
+                      }}
+                      className="whitespace-now6-px-8 py-3 bg-[#FFB7D5] border-4 border-black font-black text-xl uppercase hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all"
                     >
                       Copy
                     </button>

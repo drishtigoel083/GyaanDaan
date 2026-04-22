@@ -1,6 +1,6 @@
 import {BrowserRouter as Router,Routes,Route } from "react-router-dom"
 import Home from "./pages/Home.jsx"
-import UploadNotesPage from "./pages/upload.jsx"
+import UploadNotesPage from "./pages/Upload.jsx"
 import Register from "./pages/Register.jsx"
 import LoginPage from "./pages/Login.jsx"
 import NotesPreview from "./pages/NotesPreview.jsx"

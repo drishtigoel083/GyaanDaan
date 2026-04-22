@@ -23,33 +23,26 @@ const LoginPage = () => {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f')",
-      }}
-    >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
-
-      {/* Login Card */}
+    <div className="min-h-screen flex items-center justify-center bg-[#FDFDFD] relative overflow-hidden font-mono">
+      {/* Decorative dots background */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, #000 2px, transparent 0)", backgroundSize: "40px 40px" }}></div>
+      
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-10 w-full max-w-md bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl p-8"
+        initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+        transition={{ duration: 0.5, type: "spring" }}
+        className="relative z-10 w-full max-w-md bg-white border-4 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] p-10"
       >
-        <h2 className="text-3xl font-bold text-center text-gray-900">
-          Welcome Back 👋
+        <h2 className="text-5xl font-black uppercase tracking-tighter mb-2">
+          Login
         </h2>
-        <p className="text-center text-gray-600 mt-2">
-          Login to access your notes
+        <p className="font-bold text-gray-600 mb-8 uppercase tracking-widest">
+          Welcome Back 👋
         </p>
 
-        <form onSubmit={handleLogin} className="mt-8 space-y-5">
+        <form onSubmit={handleLogin} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-xl font-black uppercase mb-2">
               Email
             </label>
             <input
@@ -57,13 +50,13 @@ const LoginPage = () => {
               name="email"
               onChange={handleChange}
               required
-              className="w-full mt-1 px-4 py-2 rounded-xl border focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="you@example.com"
+              className="w-full px-4 py-3 bg-white border-4 border-black font-bold outline-none focus:bg-[#B2F39D] transition-colors"
+              placeholder="YOU@EXAMPLE.COM"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-xl font-black uppercase mb-2">
               Password
             </label>
             <input
@@ -71,22 +64,22 @@ const LoginPage = () => {
               name="password"
               onChange={handleChange}
               required
-              className="w-full mt-1 px-4 py-2 rounded-xl border focus:ring-2 focus:ring-blue-500 outline-none"
+              className="w-full px-4 py-3 bg-white border-4 border-black font-bold outline-none focus:bg-[#B2F39D] transition-colors"
               placeholder="••••••••"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition"
+            className="w-full py-4 bg-[#FFD363] border-4 border-black font-black text-2xl uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-none transition-all active:scale-95"
           >
-            Login
+            ENTER
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-600 mt-6">
-          Don’t have an account?{" "}
-          <Link to="/register" className="text-blue-600 font-medium hover:underline">
+        <p className="text-center font-bold mt-10 uppercase">
+          No account?{" "}
+          <Link to="/register" className="underline decoration-4 decoration-[#FFB7D5] hover:bg-[#FFB7D5] transition-colors">
             Sign up
           </Link>
         </p>

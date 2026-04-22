@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../utils/axiosInstance";
 import { motion } from "framer-motion";
+import { Download, Bookmark, User, School, Book, GraduationCap } from "lucide-react";
 
 const NotesPreview = () => {
   const { slug } = useParams();
@@ -25,69 +26,94 @@ const NotesPreview = () => {
 
   if (loading)
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        Loading...
+      <div className="min-h-screen flex items-center justify-center bg-[#FDFDFD] font-mono">
+        <div className="text-4xl font-black uppercase animate-bounce">Loading...</div>
       </div>
     );
 
   if (error)
     return (
-      <div className="min-h-screen flex items-center justify-center text-red-500">
-        {error}
+      <div className="min-h-screen flex items-center justify-center bg-[#FDFDFD] font-mono">
+        <div className="border-4 border-black p-10 bg-[#FFB7D5] shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] text-2xl font-black uppercase">
+          {error}
+        </div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex justify-center px-4 py-16">
+    <div className="min-h-screen bg-[#FDFDFD] flex justify-center items-center px-4 py-16 font-mono relative overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, #000 2px, transparent 0)", backgroundSize: "40px 40px" }}></div>
+
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-3xl bg-white/80 backdrop-blur-xl rounded-3xl shadow-xl p-8"
+        initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+        transition={{ duration: 0.5, type: "spring" }}
+        className="w-full max-w-3xl bg-white border-4 border-black shadow-[20px_20px_0px_0px_rgba(0,0,0,1)] relative z-10 overflow-hidden"
       >
-        <h1 className="text-3xl font-bold text-gray-900">
-          {note.title}
-        </h1>
-
-        <div className="mt-3 text-sm text-gray-600 flex flex-wrap gap-3">
-          <span>📘 {note.course}</span>
-          <span>📚 {note.subject}</span>
-          <span>🎓 Semester {note.semester}</span>
-          {note.university && <span>🏫 {note.university}</span>}
+        {/* Header Ribbon */}
+        <div className="bg-[#B2F39D] border-b-4 border-black p-8">
+           <h1 className="text-4xl md:text-5xl font-black uppercase leading-tight tracking-tighter">
+            {note.title}
+          </h1>
         </div>
 
-        <div className="mt-6 p-5 border rounded-xl bg-gray-50">
-          <p className="text-gray-700 font-medium">
-            Uploaded by: {note.owner?.name || "Teacher"}
-          </p>
-          <p className="text-sm text-gray-500 mt-1">
-            Access this note anytime using this link.
-          </p>
+        <div className="p-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+            <div className="bg-[#FFD363] border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              <Book className="w-6 h-6 mb-2" />
+              <p className="font-black text-xs uppercase opacity-50">Course</p>
+              <p className="font-black text-sm uppercase">{note.course}</p>
+            </div>
+            <div className="bg-[#FFB7D5] border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              <GraduationCap className="w-6 h-6 mb-2" />
+              <p className="font-black text-xs uppercase opacity-50">Semester</p>
+              <p className="font-black text-sm uppercase">{note.semester}</p>
+            </div>
+            <div className="bg-[#8EC5FC] border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              <School className="w-6 h-6 mb-2" />
+              <p className="font-black text-xs uppercase opacity-50">Subject</p>
+              <p className="font-black text-sm uppercase">{note.subject}</p>
+            </div>
+            <div className="bg-white border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+              <User className="w-6 h-6 mb-2" />
+              <p className="font-black text-xs uppercase opacity-50">Author</p>
+              <p className="font-black text-sm uppercase">{note.owner?.name || "Student"}</p>
+            </div>
+          </div>
+
+          <div className="p-8 border-4 border-black bg-gray-50 italic font-bold text-xl mb-10 relative">
+            <div className="absolute -top-4 -left-4 bg-black text-white px-3 py-1 font-black uppercase text-xs">Note Details</div>
+            {note.university && (
+              <p className="mb-2 uppercase tracking-widest text-sm opacity-60 flex items-center gap-2">
+                <School className="w-4 h-4" /> {note.university}
+              </p>
+            )}
+            <p>Ready to study? Grab the file below and start acing your exams.</p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-6">
+            <a
+              href={note.fileUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="flex-1 text-center py-5 bg-[#FFD363] border-4 border-black font-black text-2xl uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all flex items-center justify-center gap-4"
+            >
+              <Download strokeWidth={3} /> Download
+            </a>
+
+            <button
+              className="flex-1 py-5 bg-white border-4 border-black font-black text-2xl uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all flex items-center justify-center gap-4"
+              onClick={() => alert("Save feature coming soon!")}
+            >
+              <Bookmark strokeWidth={3} /> Save
+            </button>
+          </div>
         </div>
 
-        {/* Actions */}
-        <div className="mt-8 flex flex-col sm:flex-row gap-4">
-          <a
-            href={note.fileUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex-1 text-center py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition"
-          >
-            Download Notes
-          </a>
-
-          <button
-            className="flex-1 py-3 border rounded-xl font-semibold hover:bg-gray-100 transition"
-            onClick={() => alert("Save feature coming next")}
-          >
-            Save to My Notes
-          </button>
+        <div className="bg-black text-white p-4 text-center font-black uppercase text-xs tracking-[0.3em]">
+          Powered by GyaanDaan — Knowledge is power
         </div>
-
-        {/* Footer note */}
-        <p className="text-center text-xs text-gray-500 mt-8">
-          Powered by GyaanDaan — Never lose notes again.
-        </p>
       </motion.div>
     </div>
   );
