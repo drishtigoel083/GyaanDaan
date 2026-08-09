@@ -25,4 +25,20 @@ const uploadOnCloudinary = (buffer) => {
   });
 };
 
-export { uploadOnCloudinary };
+const deleteFromCloudinary = async (publicId) => {
+  if (!publicId) return null;
+  try {
+    const result = await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });
+    if (result.result !== "ok") {
+      // Try image or video if raw didn't match
+      await cloudinary.uploader.destroy(publicId);
+    }
+    return result;
+  } catch (error) {
+    console.error("Cloudinary delete error:", error);
+    return null;
+  }
+};
+
+export { uploadOnCloudinary, deleteFromCloudinary };
+
